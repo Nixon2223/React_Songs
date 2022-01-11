@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import CommentList from "./CommentList";
 
 const CommentForm = ({onCommentSubmit}) =>
 {
@@ -13,7 +14,26 @@ const CommentForm = ({onCommentSubmit}) =>
         setText(event.target.value)
     }
 
+    const handleFormSubmit = (event) => {
+        event.preventDefault()
+        const authorToSubmit = author.trim()
+        const textToSubmit = text.trim()
+        if (!authorToSubmit || !textToSubmit){
+            return
+        }
+
+    onCommentSubmit(
+        {
+            author: authorToSubmit,
+            text: textToSubmit
+        }
+    )
+
+    setAuthor("")
+    setText("")
+    }
     return (
+
         <form  className = "comment=form" onSubmit={handleFormSubmit}>
             <input
             type = "text"
@@ -32,6 +52,7 @@ const CommentForm = ({onCommentSubmit}) =>
             value = "post"
         />
         </form>
+
     )
 
 }

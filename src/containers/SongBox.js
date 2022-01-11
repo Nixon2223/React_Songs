@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import CommentsForm from "../components/CommentForm";
+import CommentList from "../components/CommentList";
 import SongsList from '../components/SongList'
 
 const SongBox = () => {
 
+    const [comments, setComments] = useState([])
     const[songs, setSongs] = useState([
         {
             id: 1,
@@ -32,12 +34,20 @@ const SongBox = () => {
         },
     ]);
 
+    const addComment = (submittedComment) => {
+        submittedComment.id = Date.now()
+        const updatedComments = [...comments, submittedComment]
+        setComments(updatedComments)
+    }
+
 
 return (
     <>
     <SongsList songs = {songs}/>
-    <CommentsForm/>
+    <CommentsForm onCommentSubmit = {(comment) => addComment(comment)}/>
+    <CommentList comments = {comments}/>
     </>
+
 
 
 )
